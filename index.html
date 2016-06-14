@@ -18,72 +18,90 @@
     <link rel="alternate" href="/atom.xml" title="wangde&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
-  
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-  <link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
   
 
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">wangde&#39;s blog</a>
-      </h1>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
         
-          <a class="main-nav-link" href="/">Home</a>
+          <li><a class="active"
+                 href="/index.html">Home</a></li>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
         
-      </nav>
-      <nav id="sub-nav">
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">wangde&#39;s blog</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          
   
     <article id="post-2016-06-13" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/13/2016-06-13/" class="article-date">
-  <time datetime="2016-06-13T15:27:20.000Z" itemprop="datePublished">2016-06-13</time>
-</a>
+
+  <header class="article-header">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
     <h1 itemprop="name">
       <a class="article-title" href="/2016/06/13/2016-06-13/">Android源码设计模式分析开源项目</a>
     </h1>
   
 
-      </header>
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/06/13/2016-06-13/" class="article-date"><time datetime="2016-06-13T15:27:20.000Z" itemprop="datePublished">2016-06-13</time></a>
+</div>
+
     
+    
+
+  </div>
+  <div class="article-inner">
+
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="提示-引自simple-android-framework-exchange"><a href="#提示-引自simple-android-framework-exchange" class="headerlink" title="提示 (引自simple-android-framework-exchange)"></a>提示 (引自<a href="https://github.com/simple-android-framework-exchange/android_design_patterns_analysis" target="_blank" rel="external">simple-android-framework-exchange</a>)</h2><p><strong>该开源库已经停止维护</strong>，该系列文章我们会根据技术发展、实战需求以及读者您的反馈重写所有章节，并且加入更加深入的核心机制分析以及模式在Android开发中的实战，<strong>完善后的文稿将会编撰成书出版</strong>，以便帮助大家更系统的学习，此时更真心地希望大家能够给出完善建议，以便本书更贴近您的需求，联系邮箱为 : simplecoder.h@gmail.com，谢谢。</p>
@@ -100,22 +118,22 @@
 <tbody>
 <tr>
 <td><a href="singleton/mr.simple">单例模式</a></td>
-<td><a href="https://github.com/bboyfeiyu" target="_blank" rel="external">Mr.Simple</a></td>
+<td><a href="https://github.com/hehonghui" target="_blank" rel="external">Mr.Simple</a></td>
 <td>完成</td>
 </tr>
 <tr>
 <td><a href="builder/mr.simple">Builder模式</a></td>
-<td><a href="https://github.com/bboyfeiyu" target="_blank" rel="external">Mr.Simple</a></td>
+<td><a href="https://github.com/hehonghui" target="_blank" rel="external">Mr.Simple</a></td>
 <td>完成</td>
 </tr>
 <tr>
 <td><a href="facade/elsdnwn">外观模式</a></td>
-<td><a href="https://github.com/elsdnwn" target="_blank" rel="external">elsdnwn</a>、<a href="https://github.com/bboyfeiyu" target="_blank" rel="external">Mr.Simple</a></td>
+<td><a href="https://github.com/hehonghui" target="_blank" rel="external">Mr.Simple</a></td>
 <td>完成</td>
 </tr>
 <tr>
 <td><a href="template-method/mr.simple">模板方法</a></td>
-<td><a href="https://github.com/bboyfeiyu" target="_blank" rel="external">Mr.Simple</a></td>
+<td><a href="https://github.com/hehonghui" target="_blank" rel="external">Mr.Simple</a></td>
 <td>完成</td>
 </tr>
 <tr>
@@ -150,7 +168,7 @@
 </tr>
 <tr>
 <td><a href="prototype/mr.simple">原型模式</a></td>
-<td><a href="https://github.com/bboyfeiyu" target="_blank" rel="external">Mr.Simple</a></td>
+<td><a href="https://github.com/hehonghui" target="_blank" rel="external">Mr.Simple</a></td>
 <td>完成</td>
 </tr>
 </tbody>
@@ -165,11 +183,20 @@
 
       
     </div>
+
+    
+      
+
+    
+
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/13/2016-06-13/" data-id="cipe6jezo0000q3gplgda8pug" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/13/2016-06-13/" data-id="cipexklmd0000bsa49713fdww" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-设计模式/">Android,设计模式</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
 
     </footer>
   </div>
@@ -177,27 +204,32 @@
 </article>
 
 
+
   
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/13/hello-world/" class="article-date">
-  <time datetime="2016-06-13T15:07:29.000Z" itemprop="datePublished">2016-06-13</time>
-</a>
+
+  <header class="article-header">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
     <h1 itemprop="name">
       <a class="article-title" href="/2016/06/13/hello-world/">Hello World</a>
     </h1>
   
 
-      </header>
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/06/13/hello-world/" class="article-date"><time datetime="2016-06-13T15:07:29.000Z" itemprop="datePublished">2016-06-13</time></a>
+</div>
+
     
+    
+
+  </div>
+  <div class="article-inner">
+
     <div class="article-entry" itemprop="articleBody">
       
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -212,104 +244,108 @@
 
       
     </div>
+
+    
+      
+
+    
+
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/13/hello-world/" data-id="cipe6hwnr0000p6gpcmpqr1nc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/13/hello-world/" data-id="cipexklmi0001bsa42gsh42o7" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
       
       
+
     </footer>
   </div>
   
 </article>
 
 
-  
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-设计模式/">Android,设计模式</a></li></ul>
-    </div>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+
+</div>
+
+
+  
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Android/">Android</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/设计模式/">设计模式</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </p>
   </div>
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Android-设计模式/" style="font-size: 10px;">Android,设计模式</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
-    </div>
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">June 2016</a><span class="sidebar-module-list-count">2</span></li></ul>
   </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/06/13/2016-06-13/">Android源码设计模式分析开源项目</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/13/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
   
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2016/06/13/2016-06-13/">Android源码设计模式分析开源项目</a>
+        </li>
+      
+        <li>
+          <a href="/2016/06/13/hello-world/">Hello World</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
     <div id="footer-info" class="inner">
       &copy; 2016 dongen_wang<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 
 
 <script src="/js/script.js"></script>
 
-  </div>
 </body>
 </html>
