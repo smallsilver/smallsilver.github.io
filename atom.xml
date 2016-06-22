@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangdongen.cn/"/>
-  <updated>2016-06-21T10:20:08.000Z</updated>
+  <updated>2016-06-22T08:19:23.000Z</updated>
   <id>http://wangdongen.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://wangdongen.cn/2016/06/21/use-SoftReference-and-WeakReference/"/>
     <id>http://wangdongen.cn/2016/06/21/use-SoftReference-and-WeakReference/</id>
     <published>2016-06-21T10:08:35.000Z</published>
-    <updated>2016-06-21T10:20:08.000Z</updated>
+    <updated>2016-06-22T08:19:23.000Z</updated>
     
     <content type="html">&lt;p&gt;　　想必很多朋友对OOM（OutOfMemory）这个错误不会陌生，而当遇到这种错误如何有效地解决这个问题呢？今天我们就来说一下如何利用软引用和弱引用来有效地解决程序中出现的OOM问题。下面是本文的目录大纲：&lt;/p&gt;
 &lt;ul&gt;
@@ -45,8 +45,7 @@
 &lt;p&gt;输出结果为：&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hello&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;null&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;　　第二个输出结果是null，这说明只要JVM进行垃圾回收，被弱引用关联的对象必定会被回收掉。不过要注意的是，这里所说的被弱引用关联的对象是指只有弱引用与之关联，如果存在强引用同时与之关联，则进行垃圾回收时也不会回收该对象（软引用也是如此）。&lt;/p&gt;
 &lt;p&gt;　　弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被JVM回收，这个软引用就会被加入到与之关联的引用队列中。&lt;/p&gt;
-&lt;p&gt;###　　4.虚引用（PhantomReference）&lt;/p&gt;
-&lt;p&gt;　　虚引用和前面的软引用、弱引用不同，它并不影响对象的生命周期。在java中用java.lang.ref.PhantomReference类表示。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。&lt;/p&gt;
+&lt;h3 id=&quot;4-虚引用（PhantomReference）&quot;&gt;&lt;a href=&quot;#4-虚引用（PhantomReference）&quot; class=&quot;headerlink&quot; title=&quot;4.虚引用（PhantomReference）&quot;&gt;&lt;/a&gt;4.虚引用（PhantomReference）&lt;/h3&gt;&lt;p&gt;　　虚引用和前面的软引用、弱引用不同，它并不影响对象的生命周期。在java中用java.lang.ref.PhantomReference类表示。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。&lt;/p&gt;
 &lt;p&gt;　　要注意的是，虚引用必须和引用队列关联使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之 关联的引用队列中。程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.lang.ref.PhantomReference;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.lang.ref.ReferenceQueue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Main&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ReferenceQueue&amp;lt;String&amp;gt; queue = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; ReferenceQueue&amp;lt;String&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        PhantomReference&amp;lt;String&amp;gt; pr = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; PhantomReference&amp;lt;String&amp;gt;(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; String(&lt;span class=&quot;string&quot;&gt;&quot;hello&quot;&lt;/span&gt;), queue);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println(pr.get());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h2 id=&quot;二-进一步理解软引用和弱引用&quot;&gt;&lt;a href=&quot;#二-进一步理解软引用和弱引用&quot; class=&quot;headerlink&quot; title=&quot;二.进一步理解软引用和弱引用&quot;&gt;&lt;/a&gt;&lt;em&gt;二.进一步理解软引用和弱引用&lt;/em&gt;&lt;/h2&gt;&lt;p&gt;　　对于强引用，我们平时在编写代码时经常会用到。而对于其他三种类型的引用，使用得最多的就是软引用和弱引用，这2种既有相似之处又有区别。它们都是用来描述非必需对象的，但是被软引用关联的对象只有在内存不足时才会被回收，而被弱引用关联的对象在JVM进行垃圾回收时总会被回收。&lt;/p&gt;
 &lt;p&gt;　　在SoftReference类中，有三个方法，两个构造方法和一个get方法（WekReference类似）：&lt;/p&gt;
@@ -163,9 +162,9 @@ limitations under the License.
     </summary>
     
     
-      <category term="Android" scheme="http://wangdongen.cn/tags/Android/"/>
-    
       <category term="图片框架" scheme="http://wangdongen.cn/tags/%E5%9B%BE%E7%89%87%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="Android" scheme="http://wangdongen.cn/tags/Android/"/>
     
   </entry>
   

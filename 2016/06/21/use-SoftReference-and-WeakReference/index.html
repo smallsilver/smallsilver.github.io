@@ -29,7 +29,7 @@
 
 
 一.了解 强引用、软引用、弱引用、虚引用的概念　　在Java">
-<meta property="og:updated_time" content="2016-06-21T10:20:08.000Z">
+<meta property="og:updated_time" content="2016-06-22T08:19:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 如何有效地避免OOM：善于利用软引用和弱引用">
 <meta name="twitter:description" content="想必很多朋友对OOM（OutOfMemory）这个错误不会陌生，而当遇到这种错误如何有效地解决这个问题呢？今天我们就来说一下如何利用软引用和弱引用来有效地解决程序中出现的OOM问题。下面是本文的目录大纲：
@@ -153,8 +153,7 @@ ga('send', 'pageview');
 <p>输出结果为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line"><span class="keyword">null</span></span><br></pre></td></tr></table></figure></p>
 <p>　　第二个输出结果是null，这说明只要JVM进行垃圾回收，被弱引用关联的对象必定会被回收掉。不过要注意的是，这里所说的被弱引用关联的对象是指只有弱引用与之关联，如果存在强引用同时与之关联，则进行垃圾回收时也不会回收该对象（软引用也是如此）。</p>
 <p>　　弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被JVM回收，这个软引用就会被加入到与之关联的引用队列中。</p>
-<p>###　　4.虚引用（PhantomReference）</p>
-<p>　　虚引用和前面的软引用、弱引用不同，它并不影响对象的生命周期。在java中用java.lang.ref.PhantomReference类表示。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。</p>
+<h3 id="4-虚引用（PhantomReference）"><a href="#4-虚引用（PhantomReference）" class="headerlink" title="4.虚引用（PhantomReference）"></a>4.虚引用（PhantomReference）</h3><p>　　虚引用和前面的软引用、弱引用不同，它并不影响对象的生命周期。在java中用java.lang.ref.PhantomReference类表示。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。</p>
 <p>　　要注意的是，虚引用必须和引用队列关联使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之 关联的引用队列中。程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.ref.PhantomReference;</span><br><span class="line"><span class="keyword">import</span> java.lang.ref.ReferenceQueue;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ReferenceQueue&lt;String&gt; queue = <span class="keyword">new</span> ReferenceQueue&lt;String&gt;();</span><br><span class="line">        PhantomReference&lt;String&gt; pr = <span class="keyword">new</span> PhantomReference&lt;String&gt;(<span class="keyword">new</span> String(<span class="string">"hello"</span>), queue);</span><br><span class="line">        System.out.println(pr.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="二-进一步理解软引用和弱引用"><a href="#二-进一步理解软引用和弱引用" class="headerlink" title="二.进一步理解软引用和弱引用"></a><em>二.进一步理解软引用和弱引用</em></h2><p>　　对于强引用，我们平时在编写代码时经常会用到。而对于其他三种类型的引用，使用得最多的就是软引用和弱引用，这2种既有相似之处又有区别。它们都是用来描述非必需对象的，但是被软引用关联的对象只有在内存不足时才会被回收，而被弱引用关联的对象在JVM进行垃圾回收时总会被回收。</p>
 <p>　　在SoftReference类中，有三个方法，两个构造方法和一个get方法（WekReference类似）：</p>
@@ -177,7 +176,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wangdongen.cn/2016/06/21/use-SoftReference-and-WeakReference/" data-id="cippav3mn0004naa4p4d0f1lh" class="article-share-link">Share</a>
+      <a data-url="http://wangdongen.cn/2016/06/21/use-SoftReference-and-WeakReference/" data-id="cipqlzmy700000ya481j3q5x1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory/">memory</a></li></ul>
